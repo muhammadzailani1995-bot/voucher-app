@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr Robot Voucher</title>
+    <style>
+        body {
+            background-color: #cce7ff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .qr img {
+            width: 250px;
+            margin: 20px 0;
+        }
+        .instructions {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .lang {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+        .lang a {
+            margin: 0 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="lang">
+        <a href="/?lang=en">English</a> | <a href="/?lang=bm">BM</a>
+    </div>
+
+    <div class="title">Mr Robot Digital Voucher</div>
+
+    {% if lang == 'bm' %}
+        <div class="instructions">📌 Harga: RM1.40 sahaja</div>
+        <div class="instructions">✅ Sah untuk semua voucher</div>
+        <div class="instructions">1. Buat pembayaran menggunakan QR di bawah</div>
+        <div class="instructions">2. Screenshot bukti pembayaran</div>
+        <div class="instructions">3. Hantar bukti ke WhatsApp seller bersama pilihan voucher anda:</div>
+        <div class="instructions">- ZUS Coffee<br>- KFC<br>- CHAGEE<br>- Tealive</div>
+    {% else %}
+        <div class="instructions">📌 Price: Only RM1.40</div>
+        <div class="instructions">✅ Valid for all vouchers</div>
+        <div class="instructions">1. Make payment using the QR code below</div>
+        <div class="instructions">2. Screenshot your payment proof</div>
+        <div class="instructions">3. Send proof to the seller’s WhatsApp with your voucher choice:</div>
+        <div class="instructions">- ZUS Coffee<br>- KFC<br>- CHAGEE<br>- Tealive</div>
+    {% endif %}
+
+    <div class="qr">
+        <img src="{{ url_for('static', filename='qr.png') }}" alt="QR Code">
+    </div>
+
+    <div class="instructions">📱 WhatsApp: <a href="https://wa.me/601171213783" target="_blank">Click here</a></div>
+</body>
+</html>
