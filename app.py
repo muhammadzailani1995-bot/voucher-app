@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string, request, redirect
+from flask import Flask, render_template_string
 import sqlite3
 import os
 
@@ -7,9 +7,9 @@ app = Flask(__name__)
 DB_NAME = 'products.db'
 
 def init_db():
-    # Create database and table if not exists
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
+    # Create table if not exists
     c.execute("""
         CREATE TABLE IF NOT EXISTS products (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,17 +20,26 @@ def init_db():
         )
     """)
     conn.commit()
+
+    # Insert sample row if table is empty
+    c.execute("SELECT COUNT(*) FROM products")
+    count = c.fetchone()[0]
+    if count == 0:
+        c.execute("""
+            INSERT INTO products (name, original_price, price, code)
+            VALUES
+            ('Sample Product', 2.00, 1.50, 'DISC40')
+        """)
+        conn.commit()
+
     conn.close()
 
-# Initialize database on startup
 init_db()
 
 HTML_TEMPLATE = """
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voucher App</title>
 </head>
 <body>
